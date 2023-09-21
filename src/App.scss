@@ -5,17 +5,28 @@
 @import 'londonmanager-legos/components/spacer/index';
 
 .section-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: url('./assets/ldnman-background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   min-height: 100vh;
   padding: 4.8rem 0;
   box-sizing: border-box;
+}
+
+img.background-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.color-white {
+  color: $grayscale-0;
 }
 
 .form-container {
@@ -25,7 +36,7 @@
   width: 351px;
   background: white;
   border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.38);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.38);
   padding: 1.5rem 1.35rem;
   box-sizing: border-box;
 }

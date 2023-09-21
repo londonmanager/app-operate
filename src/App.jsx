@@ -4,6 +4,7 @@ import { Controller, Form, useForm } from 'react-hook-form'
 import { Typography, Button, TextField, Spacer } from 'londonmanager-legos'
 
 import Logo from './assets/ldnman-logo.svg'
+import BackgroundImage from './assets/ldnman-background.jpg'
 import './App.scss'
 
 const EyeIcon = () => (
@@ -37,7 +38,7 @@ const App = () => {
   // Form
   const {
     control,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     defaultValues: {
       email: '',
@@ -47,15 +48,18 @@ const App = () => {
 
   return (
     <section className='section-container'>
-      <img src={Logo} width={297} />
-      Sistema de Gestión On-Line
+      <img src={Logo} width={297} alt="London Manager" />
+      <Typography className="color-white" component="h3" size='sm'>Sistema de Gestión On-Line</Typography>
+
+      <Spacer height={38} />
+
       <div className='form-container'>
         <Spacer height={10} />
         <Typography component='h1' type='title' size='xs'>
           Iniciar sesión
         </Typography>
         <Spacer height={4} />
-        <Typography component='h3' size='sm'>
+        <Typography component='h2' size='sm'>
           ¿No tenés cuenta? <a className='text-button'>Registrarte</a> es muy
           fácil.
         </Typography>
@@ -129,6 +133,14 @@ const App = () => {
           fullWidth
         />
       </div>
+
+      {/* Background */}
+      <img
+        className='background-image'
+        loading='lazy'
+        src={BackgroundImage}
+        aria-hidden='true'
+      />
     </section>
   )
 }
