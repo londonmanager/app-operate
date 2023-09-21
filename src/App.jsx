@@ -35,6 +35,8 @@ const App = () => {
 
   const toggleShowPassword = () => setShowPassword(prev => !prev)
 
+  const apiURI = 'https://api.londonmanager.com/login'
+
   // Form
   const {
     control,
@@ -48,8 +50,10 @@ const App = () => {
 
   return (
     <section className='section-container'>
-      <img src={Logo} width={297} alt="London Manager" />
-      <Typography className="color-white" component="h3" size='sm'>Sistema de Gestión On-Line</Typography>
+      <img src={Logo} loading='lazy' width={297} alt='London Manager' />
+      <Typography className='color-white' component='h3' size='sm'>
+        Sistema de Gestión On-Line
+      </Typography>
 
       <Spacer height={38} />
 
@@ -68,13 +72,13 @@ const App = () => {
         {/* Formulario */}
         <Form
           className='form'
-          action='/api/auth/login' // Send post request with the FormData
-          // encType={'application/json'} you can also switch to json object
+          action={apiURI}
+          encType={'application/json'}
           onSuccess={() => {
             alert('Your application is updated.')
           }}
-          onError={() => {
-            alert('Submission has failed.')
+          onError={(err) => {
+            console.log('error login:', err)
           }}
           control={control}
         >
