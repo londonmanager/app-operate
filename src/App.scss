@@ -1,0 +1,59 @@
+@import 'londonmanager-legos/common/index';
+@import 'londonmanager-legos/components/typography/index';
+@import 'londonmanager-legos/components/button/index';
+@import 'londonmanager-legos/components/textfield/index';
+@import 'londonmanager-legos/components/spacer/index';
+
+.section-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url('./assets/ldnman-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding: 4.8rem 0;
+  box-sizing: border-box;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 351px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.38);
+  padding: 1.5rem 1.35rem;
+  box-sizing: border-box;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-button {
+  display: inline-flex;
+  justify-content: center;
+  color: $primary-500;
+  margin: 0 auto;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  line-height: 16px !important;
+  user-select: none;
+
+  &:hover {
+    border-bottom: 2px solid $primary-500;
+  }
+}
+
+.divider {
+  position: relative;
+  width: calc(100% + 2.7rem);
+  height: 2px;
+  left: -1.35rem;
+  background-color: $grayscale-300;
+}
