@@ -1,11 +1,17 @@
 import { useState } from 'react'
-import { Controller, Form, useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
 import { Typography, Button, TextField, Spacer } from 'londonmanager-legos'
+import { getCookie, setCookie } from 'londonmanager-legos/common/utils/cookies'
 
 import Logo from './assets/ldnman-logo.svg'
 import BackgroundImage from './assets/ldnman-background.jpg'
 import './App.scss'
+
+const formSchena = {
+  email: '',
+  password: ''
+}
 
 const EyeIcon = () => (
   <svg
@@ -32,21 +38,68 @@ const EyeIcon = () => (
 
 const App = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const [errors, setErrors] = useState({
+    ...formSchena
+  })
+  const [loading, setLoading] = useState(false)
 
-  const toggleShowPassword = () => setShowPassword(prev => !prev)
+  // Comprobar sesión
+  if(getCookie('accessToken')){
+    window.location.href = 'https://londonmanager.pro/profile'
+ }
 
-  const apiURI = 'https://api.londonmanager.com/login'
+ // Form Controls
+ const toggleShowPassword = () => setShowPassword(prev => !prev)
 
-  // Form
-  const {
-    control,
-    formState: { errors }
-  } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
-      email: '',
-      password: ''
+      ...formSchena
     }
   })
+
+  const onSubmit = async data => {
+    setLoading(true)
+
+    try {
+      const response = await fetch('https://api.londonmanager.pro/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+
+      const responseData = await response.json()
+
+      if (responseData?.error) {
+        if (typeof responseData?.error === 'string') {
+          setErrors({
+            general: responseData.error
+          })
+        } else {
+          setErrors({
+            ...responseData.error
+          })
+        }
+      }
+
+      if (response.ok) {
+        console.log(responseData)
+        // Sesión exitosa
+        setCookie('idToken', responseData?.idToken.jwtToken);
+        setCookie('refreshToken', responseData?.refreshToken.token);
+        setCookie('accessToken', responseData?.accessToken.jwtToken);
+        console.log('no creó una mier')
+      }
+    } catch (error) {
+      setErrors({
+        general:
+          'Ocurrió un error inesperado. Por favor comuníquese con el administrador.'
+      })
+    }
+
+    setLoading(false)
+  }
 
   return (
     <section className='section-container'>
@@ -63,41 +116,37 @@ const App = () => {
           Iniciar sesión
         </Typography>
         <Spacer height={4} />
-        <Typography component='h2' size='sm'>
-          ¿No tenés cuenta? <a className='text-button'>Registrarte</a> es muy
-          fácil.
-        </Typography>
+        <div className='text-inline'>
+          <Typography component='h2' size='sm'>
+            ¿No tenés cuenta?
+          </Typography>
+          <Typography
+            component='button'
+            className='text-button'
+            size='sm'
+            aria-label='Registrarte es muy fácil'
+          >
+            Registrarte es muy fácil
+          </Typography>
+        </div>
         <Spacer height={25} />
 
         {/* Formulario */}
-        <Form
-          className='form'
-          action={apiURI}
-          encType={'application/json'}
-          onSuccess={() => {
-            alert('Your application is updated.')
-          }}
-          onError={(err) => {
-            console.log('error login:', err)
-          }}
-          control={control}
-        >
+        <form className='form' onSubmit={handleSubmit(onSubmit)}>
+          {errors?.general && (
+            <Typography className='text-error' component='h2' size='sm'>
+              {errors?.general}
+            </Typography>
+          )}
+
           <Controller
             name='email'
             control={control}
-            rules={{
-              required: 'Campo requerido',
-              pattern: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/
-            }}
             render={({ field }) => (
               <TextField
                 {...field}
                 placeholder='Correo electrónico'
-                errorMsg={
-                  errors.email?.type === 'pattern'
-                    ? 'Formato inválido'
-                    : errors.email?.message
-                }
+                errorMsg={errors.email}
               />
             )}
           />
@@ -105,25 +154,24 @@ const App = () => {
           <Controller
             name='password'
             control={control}
-            rules={{ required: 'Campo requerido' }}
             render={({ field }) => (
               <TextField
                 {...field}
                 placeholder='Contraseña'
                 type={showPassword ? 'text' : 'password'}
-                icon={<EyeIcon />}
+                icon={<EyeIcon aria-hidden />}
                 iconAction={toggleShowPassword}
-                errorMsg={errors?.password && errors.password?.message}
+                errorMsg={errors.password}
               />
             )}
           />
           <Spacer height={16} />
-          <Button type='submit' label='Iniciar sesión' fullWidth />
-        </Form>
+          <Button type='submit' label='Iniciar sesión' fullWidth disabled={loading} />
+        </form>
         {/* Fin del formulario */}
 
         <Spacer height={16} />
-        <Typography component='a' className='text-button' size='sm'>
+        <Typography component='a' className='text-button margin-auto' size='sm'>
           No recuerdo mi contraseña
         </Typography>
 
@@ -135,6 +183,7 @@ const App = () => {
           label='Iniciar sesión con Google'
           hierarchy='secondary'
           fullWidth
+          disabled={loading}
         />
       </div>
 

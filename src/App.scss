@@ -50,15 +50,38 @@ img.background-image {
   display: inline-flex;
   justify-content: center;
   color: $primary-500;
-  margin: 0 auto;
+  border: none;
   border-bottom: 2px solid transparent;
   cursor: pointer;
   line-height: 16px !important;
   user-select: none;
+  text-decoration: none;
+  background-color: transparent;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 
   &:hover {
     border-bottom: 2px solid $primary-500;
   }
+}
+
+.margin-auto {
+  margin: 0 auto;
+}
+
+.text-inline {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.text-error {
+  color: $error-400;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .divider {
