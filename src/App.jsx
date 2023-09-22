@@ -91,7 +91,6 @@ const App = () => {
         setCookie('idToken', responseData?.idToken.jwtToken);
         setCookie('refreshToken', responseData?.refreshToken.token);
         setCookie('accessToken', responseData?.accessToken.jwtToken);
-        window.location.href = redirectUrl
       }
     } catch (error) {
       setErrors({
