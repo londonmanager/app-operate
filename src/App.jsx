@@ -36,6 +36,9 @@ const EyeIcon = () => (
   </svg>
 )
 
+const redirectUrl = 'https://londonmanager.pro/profile'
+const apiUrl = 'https://api.londonmanager.pro/auth/login'
+
 const App = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState({
@@ -45,7 +48,7 @@ const App = () => {
 
   // Comprobar sesión
   if(getCookie('accessToken')){
-    window.location.href = 'https://londonmanager.pro/profile'
+    window.location.href = redirectUrl
  }
 
  // Form Controls
@@ -61,7 +64,7 @@ const App = () => {
     setLoading(true)
 
     try {
-      const response = await fetch('https://api.londonmanager.pro/auth/login', {
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -84,12 +87,11 @@ const App = () => {
       }
 
       if (response.ok) {
-        console.log(responseData)
         // Sesión exitosa
         setCookie('idToken', responseData?.idToken.jwtToken);
         setCookie('refreshToken', responseData?.refreshToken.token);
         setCookie('accessToken', responseData?.accessToken.jwtToken);
-        console.log('no creó una mier')
+        window.location.href = redirectUrl
       }
     } catch (error) {
       setErrors({
