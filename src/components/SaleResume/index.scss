@@ -1,0 +1,88 @@
+@import 'londonmanager-legos/common/index';
+$sale-resume-namespace: 'lm-sale-resume';
+
+.#{$sale-resume-namespace} {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  &__search-container {
+    padding: 16px 16px;
+    background-color: $grayscale-400;
+  }
+
+  &__list-container {
+    flex: 1;
+    background-color: $grayscale-100;
+    
+    li {
+      display: flex;
+      height: 54px;
+      justify-content: space-between;
+      border-bottom: 1px solid $grayscale-200;
+      background-color: white;
+      
+      div {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 0 8px;
+        box-sizing: border-box;
+        border-right: 1px solid $grayscale-200;
+
+        span {
+          font-weight: 700 !important;
+        }
+      }
+      
+      .qty {
+        width: 32px;
+      }
+
+      .text {
+        flex: 1;
+        flex-direction: column;
+        padding: 0 16px;
+        justify-content: center;
+        align-items: flex-start;
+
+        span:last-child {
+          font-weight: 400 !important;
+        }
+      }
+      
+      .price {
+        width: 120px;
+        justify-content: flex-end;
+      }
+      
+      .options {
+        border: 0;
+        padding: 0;
+
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 100%;
+          border: 0;
+          padding: 0;
+          background-color: white;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $primary-500;
+            color: white; 
+          }
+
+          svg {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

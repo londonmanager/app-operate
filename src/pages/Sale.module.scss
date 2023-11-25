@@ -1,1 +1,31 @@
-@import '../Legos.scss';
+@import 'londonmanager-legos/common/index';
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.containerSecondary {
+  display: flex;
+  flex: 1;
+  background-color: red;
+  flex-direction: row;
+  width: 100vw;
+  justify-content: space-between;
+}
+
+.containerProducts {
+  flex: 1;
+}
+
+.containerSale {
+  min-width: 475px;
+  max-width: 900px;
+  background-color: white;
+}
+
+.containerResume {
+  height: 90px;
+}
