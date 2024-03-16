@@ -16,8 +16,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: arn:aws:iam::900201620692:user/mfe-arian-github-actions
-          aws-secret-access-key: AKIA5DGBSUTKLIASPU6A
+          aws-access-key-id: AKIA5DGBSUTKNCS6GSWP
+          aws-secret-access-key: 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
           aws-region: sa-east-1
 
       - name: Deploy to S3
