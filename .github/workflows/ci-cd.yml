@@ -18,7 +18,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-session-name: bucket-github-actions
-          role-to-assume: londonmanager-superadmin
+          role-to-assume: arn:aws:iam::900201620692:role/github-thrust-role
           aws-region: sa-east-1
 
       - name: Deploy to S3
