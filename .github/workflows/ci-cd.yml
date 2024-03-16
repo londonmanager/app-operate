@@ -22,4 +22,4 @@ jobs:
           aws-region: sa-east-1
 
       - name: Deploy to S3
-        run: aws s3 sync ./dist s3://londonmanager-frontend --delete
+        run: aws s3 sync-bucket ./dist s3://londonmanager-frontend --delete
