@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom'
 import { HeaderSection } from 'londonmanager-legos'
 import ArticlesToSale from '../components/ArticlesToSale/ArticlesToSale'
 import SaleResume from '../components/SaleResume/SaleResume'
@@ -5,7 +6,11 @@ import TotalBar from '../components/TotalBar/TotalBar'
 import { saleDropdownItems } from '../helpers/dropdown-items'
 import styles from './Sale.module.scss'
 
-export default function Sale () {
+export default function Sale ({ user }) {
+  const { popID } = useParams()
+  console.log('user',user)
+  console.log(popID)
+  
   return (
     <div className={styles.container}>
       <HeaderSection
