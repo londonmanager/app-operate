@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '.git/workflows/**'
+      - '.github/workflows/**'
       - 'dist/**'
 
 jobs:
