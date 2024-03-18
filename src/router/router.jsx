@@ -5,19 +5,17 @@ import Sale from '../pages/Sale.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
+    element: <Sale />
       // <Auth>
-        <Sale />
+        // <Sale />
       // </Auth>
-    )
   },
   {
     path: '/sale/:popID',
-    element: (
+    element: <Sale />
       // <Auth>
-        <Sale />
+        // <Sale />
       // </Auth>
-    )
   }
 ])
 
